@@ -124,7 +124,7 @@ const Header = () => {
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 opacity-80" />
-              Mon–Fri 9am–7pm · Closed Weekends
+              Mon–Fri 9am–6pm · Closed Weekends
             </span>
           </div>
           <div className="flex items-center gap-6">
@@ -257,7 +257,7 @@ const Hero = () => (
             {[
               { value: "5.0 ★", label: "Google Rating" },
               { value: "93+", label: "Reviews" },
-              { value: "18 yrs", label: "Practicing" },
+              { value: "20+ yrs", label: "Practicing" },
               { value: "120+", label: "Clinics Held" },
             ].map((stat, i) => (
               <div key={i}>
@@ -274,7 +274,7 @@ const Hero = () => (
         {[
           { value: "5.0 ★", label: "Google Rating" },
           { value: "93+", label: "Reviews" },
-          { value: "18 yrs", label: "Practicing" },
+          { value: "20+ yrs", label: "Practicing" },
           { value: "120+", label: "Clinics Held" },
         ].map((stat, i) => (
           <div key={i} className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-center">
@@ -373,7 +373,7 @@ const MeetPharmacist = () => (
           {/* Stats chips */}
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { value: "18 yrs", label: "Practicing" },
+              { value: "20+ yrs", label: "Practicing" },
               { value: "120+", label: "Clinics Held" },
               { value: "EN · PA · HI", label: "Languages" },
             ].map((s, i) => (
@@ -532,7 +532,8 @@ const Services = () => {
     { title: "Diabetes Clinics", icon: Activity, desc: "Group and 1:1 sessions blending clinical care with lifestyle coaching." },
     { title: "Diabetic Lifestyle Coaching", icon: Leaf, desc: "One-on-one coaching to build sustainable, healthy routines for diabetes management." },
     { title: "Wellness Outreach", icon: Globe, desc: "Workshops at temples, schools, and community centers." },
-    { title: "Compounding", icon: HeartHandshake, desc: "Custom medication formulations tailored to individual patient needs." },
+    { title: "Pain Management", icon: Activity, desc: "Personalized strategies and medication support for chronic and acute pain." },
+    { title: "Women's Empowerment Sessions", icon: Heart, desc: "Weekend sessions for women on health, wellness, and community support." },
   ];
 
   return (
@@ -674,10 +675,8 @@ const Affiliations = () => (
 /* ─── Reviews ─── */
 const Reviews = () => {
   const reviews = [
-    { text: "Swapna caught a medication interaction my specialist missed. She explained it like a friend would, with all the time in the world.", author: "Anita S.", detail: "Patient · 1.5 years" },
-    { text: "Cheaper than CVS and you don't have to wait an hour in line like Rite Aid. This is now my go-to pharmacy.", author: "Local Customer", detail: "Google Review" },
-    { text: "Hanford Pharmacy staff is very friendly with great service and no longer lines. Highly recommend!", author: "Local Customer", detail: "Google Review" },
-    { text: "They even offer snacks, water and coffee to customers. Such a nice touch — truly feels like community.", author: "Local Customer", detail: "Google Review" },
+    { text: "A small-town pharmacy that's quick and efficient. The owner is so sweet and helpful — she goes out of her way for great customer care.", author: "Kristen B.", detail: "Yelp Review · Dec 2025" },
+    { text: "I already left one five-star review, but I'll say it again: highly recommend everything about this place!", author: "Cianne M.", detail: "Yelp Review · Apr 2025" },
   ];
 
   return (
@@ -696,7 +695,7 @@ const Reviews = () => {
           </motion.div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {reviews.map((review, idx) => (
             <motion.div
               key={idx}
@@ -772,11 +771,11 @@ const Location = () => (
             <table className="w-full text-left">
               <tbody>
                 {[
-                  { day: "Monday", hours: "9:00 AM – 7:00 PM", open: true },
-                  { day: "Tuesday", hours: "9:00 AM – 7:00 PM", open: true },
-                  { day: "Wednesday", hours: "9:00 AM – 7:00 PM", open: true },
-                  { day: "Thursday", hours: "9:00 AM – 7:00 PM", open: true },
-                  { day: "Friday", hours: "9:00 AM – 7:00 PM", open: true },
+                  { day: "Monday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Tuesday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Wednesday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Thursday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Friday", hours: "9:00 AM – 6:00 PM", open: true },
                   { day: "Saturday", hours: "Closed", open: false },
                   { day: "Sunday", hours: "Closed", open: false },
                 ].map(({ day, hours, open }, i, arr) => (
@@ -807,19 +806,44 @@ const Location = () => (
   </section>
 );
 
-/* ─── Contact Form ─── */
+/* ─── Contact Form ───
+   Submits straight to Web3Forms, a free form-relay service: it forwards
+   the fields below as an email to the address tied to WEB3FORMS_ACCESS_KEY,
+   with no backend of our own to host or maintain. Get a key at
+   https://web3forms.com (enter hanfordpharmacy@gmail.com, the key arrives
+   by email in seconds) and paste it into the constant below. */
+const WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY";
+
 const ContactForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", "New message from the Hanford Pharmacy website");
+    formData.append("from_name", "Hanford Pharmacy Website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+      if (result.success) {
+        form.reset();
+        toast({ title: "Message Sent!", description: "Thank you — we'll be in touch shortly.", duration: 5000 });
+      } else {
+        toast({ title: "Something went wrong", description: "Please call us instead at (559) 380-2220.", duration: 6000 });
+      }
+    } catch {
+      toast({ title: "Something went wrong", description: "Please call us instead at (559) 380-2220.", duration: 6000 });
+    } finally {
       setIsSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-      toast({ title: "Message Sent!", description: "Thank you — we'll be in touch shortly.", duration: 5000 });
-    }, 1000);
+    }
   };
 
   return (
@@ -841,20 +865,20 @@ const ContactForm = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-semibold text-gray-700">Full Name</label>
-                  <input type="text" id="name" required className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Jane Doe" data-testid="input-name" />
+                  <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Jane Doe" data-testid="input-name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-sm font-semibold text-gray-700">Phone Number</label>
-                  <input type="tel" id="phone" required className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="(559) 123-4567" data-testid="input-phone" />
+                  <input type="tel" id="phone" name="phone" required className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="(559) 123-4567" data-testid="input-phone" />
                 </div>
               </div>
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-semibold text-gray-700">Email Address</label>
-                <input type="email" id="email" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="jane@example.com" data-testid="input-email" />
+                <input type="email" id="email" name="email" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="jane@example.com" data-testid="input-email" />
               </div>
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-semibold text-gray-700">Message</label>
-                <textarea id="message" required rows={4} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" placeholder="How can we help you today?" data-testid="input-message"></textarea>
+                <textarea id="message" name="message" required rows={4} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" placeholder="How can we help you today?" data-testid="input-message"></textarea>
               </div>
               <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-colors shadow-md disabled:opacity-70 flex items-center justify-center gap-2" data-testid="button-submit-contact">
                 {isSubmitting ? (
@@ -917,7 +941,7 @@ const Footer = () => (
         <div>
           <h4 className="text-lg font-bold mb-5">Business Hours</h4>
           <ul className="space-y-2.5 text-sm text-white/70 font-mono">
-            {[["Mon – Fri","9:00 AM – 7:00 PM"],["Saturday","Closed"],["Sunday","Closed"]].map(([day, time]) => (
+            {[["Mon – Fri","9:00 AM – 6:00 PM"],["Saturday","Closed"],["Sunday","Closed"]].map(([day, time]) => (
               <li key={day} className="flex justify-between gap-4">
                 <span>{day}</span>
                 <span className={time === "Closed" ? "text-white/40" : "text-white/90 font-medium"}>{time}</span>
