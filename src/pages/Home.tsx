@@ -201,88 +201,63 @@ const Header = () => {
 
 /* ─── Hero ─── */
 const Hero = () => (
-  <section id="top" className="relative min-h-[100dvh] flex items-center overflow-hidden">
+  <section id="top" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img src={heroBg} alt="Hanford Pharmacy Interior" className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-purple-950/60"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-purple-950/70"></div>
     </div>
 
-    <div className="container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-[1.15fr_0.85fr] gap-10 items-center pt-32 md:pt-40 pb-20">
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="max-w-2xl text-white">
-        {/* Tagline label */}
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/25 pl-3 pr-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.15em] mb-7 font-mono">
-          <Capsule className="w-4 h-4 text-secondary" />
+    <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center text-center text-white pt-28 md:pt-40 pb-16">
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="max-w-4xl">
+        {/* Tagline pill */}
+        <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
           A Holistic Neighborhood Pharmacy
         </div>
 
-        <h1 className="text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.05] mb-6 tracking-tight">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
           Healing that holds<br className="hidden md:block" />
-          <span className="text-secondary/90 italic font-medium">the whole of you.</span>
+          <span className="text-secondary/90"> the whole of you.</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-white/85 mb-4 max-w-xl leading-relaxed">
+        <p className="text-lg md:text-xl text-white/85 mb-4 max-w-2xl mx-auto leading-relaxed">
           Hanford Pharmacy is the practice of Swapna Reddy — PharmD, BPharm, BCACP, BCGP, CBDCE, BCMTM. Trusted local pharmacy care built on compassion, service, and community.
         </p>
 
-        <p className="text-sm uppercase tracking-[0.2em] text-white/55 mb-10 font-mono">
+        <p className="text-sm uppercase tracking-[0.2em] text-white/60 mb-10 font-medium">
           Compassion · Service · Community
         </p>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <a href="tel:+15593802220" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-xl" data-testid="button-hero-call">
-            <Capsule className="w-5 h-5" />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+          <a href="tel:+15593802220" className="w-full sm:w-auto bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg" data-testid="button-hero-call">
             Call Now
           </a>
-          <a href="https://maps.google.com/?q=1870+W+Lacey+Blvd+Hanford+CA+93230" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto border-2 border-white/70 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-white hover:text-primary hover:border-white" data-testid="button-hero-directions">
+          <a href="https://maps.google.com/?q=1870+W+Lacey+Blvd+Hanford+CA+93230" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-white hover:text-primary shadow-lg" data-testid="button-hero-directions">
             Get Directions
           </a>
         </div>
-      </motion.div>
 
-      {/* Floating prescription-label stat card */}
-      <motion.div
-        initial={{ opacity: 0, y: 30, rotate: -6 }}
-        animate={{ opacity: 1, y: 0, rotate: -2 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-        className="hidden lg:block justify-self-end"
-      >
-        <div className="relative bg-white/95 backdrop-blur-sm rounded-[1.75rem] shadow-2xl shadow-black/30 w-80 p-7">
-          {/* perforation edge */}
-          <div className="absolute -top-3 left-8 right-8 border-t-2 border-dashed border-primary/25"></div>
-          <div className="absolute -top-3.5 left-6 w-3 h-3 rounded-full bg-primary/20"></div>
-          <div className="absolute -top-3.5 right-6 w-3 h-3 rounded-full bg-primary/20"></div>
-
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-gray-400 mb-4">Patient Snapshot</p>
-          <div className="grid grid-cols-2 gap-y-5">
-            {[
-              { value: "5.0 ★", label: "Google Rating" },
-              { value: "93+", label: "Reviews" },
-              { value: "20+ yrs", label: "Practicing" },
-              { value: "120+", label: "Clinics Held" },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className="text-2xl font-bold text-primary font-serif">{stat.value}</div>
-                <div className="text-[0.65rem] text-gray-500 uppercase tracking-wider font-mono mt-0.5">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+        {/* Stats strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          {[
+            { value: "5.0 ★", label: "Google Rating" },
+            { value: "93+", label: "Reviews" },
+            { value: "20+ yrs", label: "Practicing" },
+            { value: "120+", label: "Clinics Held" },
+          ].map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 + i * 0.1 }}
+              className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-center"
+            >
+              <div className="text-xl font-bold text-white">{stat.value}</div>
+              <div className="text-xs text-white/70 uppercase tracking-wider mt-0.5">{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
-
-      {/* Compact stat strip for mobile/tablet */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 lg:hidden">
-        {[
-          { value: "5.0 ★", label: "Google Rating" },
-          { value: "93+", label: "Reviews" },
-          { value: "20+ yrs", label: "Practicing" },
-          { value: "120+", label: "Clinics Held" },
-        ].map((stat, i) => (
-          <div key={i} className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-center">
-            <div className="text-xl font-bold text-white">{stat.value}</div>
-            <div className="text-xs text-white/70 uppercase tracking-wider mt-0.5">{stat.label}</div>
-          </div>
-        ))}
-      </div>
     </div>
 
     {/* Scroll indicator */}
