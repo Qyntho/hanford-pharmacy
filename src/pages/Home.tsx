@@ -42,6 +42,39 @@ import swapnaAction from "@assets/Screenshot_from_2026-07-30_02-28-39_1785360537
 import galleryInterior from "@assets/generated_images/gallery_interior.jpg";
 import galleryClinic from "@assets/generated_images/gallery_clinic.jpg";
 
+/* ─── Signature mark ───
+   A two-tone capsule glyph — half solid, half outlined, split by a seam —
+   echoes the pharmacy's core object (the pill) without leaning on a cliché
+   caduceus or cross. Reused as an eyebrow bullet, a button accent, and a
+   section-break glyph so one motif carries the whole identity. */
+const Capsule = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 32 16" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(-32 16 8)">
+      <path d="M16 3h6a5 5 0 010 10h-6V3z" fill="currentColor" />
+      <path d="M16 3h-6a5 5 0 000 10h6V3z" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <line x1="16" y1="3.2" x2="16" y2="12.8" stroke="currentColor" strokeWidth="1.4" />
+    </g>
+  </svg>
+);
+
+/* ─── Eyebrow ───
+   Small mono-set label used above every section heading. Standardizing it
+   on one component (icon + tracked mono caps) turns a decorative flourish
+   into a real structural signal: "a new section starts here." */
+const Eyebrow = ({ children, align = "center" }: { children: React.ReactNode; align?: "center" | "left" }) => (
+  <motion.p
+    initial={{ opacity: 0, y: 16 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className={`flex items-center gap-2 text-xs font-semibold text-primary tracking-[0.2em] uppercase mb-3 font-mono ${
+      align === "center" ? "justify-center" : "justify-start"
+    }`}
+  >
+    <Capsule className="w-4 h-4 text-accent shrink-0" />
+    {children}
+  </motion.p>
+);
+
 /* ─── Header ───
    TopBar and Navbar used to be two independently-fixed elements both
    pinned to top-0, which made them stack on top of each other instead
@@ -91,7 +124,7 @@ const Header = () => {
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 opacity-80" />
-              Mon–Fri 9am–7pm · Sat 10am–4pm
+              Mon–Fri 9am–7pm · Closed Weekends
             </span>
           </div>
           <div className="flex items-center gap-6">
@@ -99,9 +132,9 @@ const Header = () => {
               <Phone className="w-3.5 h-3.5 opacity-80" />
               559-380-2220
             </a>
-            <a href="mailto:swapna@swapnapharmacy.com" className="flex items-center gap-1.5 hover:text-white/80 transition-colors">
+            <a href="mailto:hanfordpharmacy@gmail.com" className="flex items-center gap-1.5 hover:text-white/80 transition-colors">
               <Mail className="w-3.5 h-3.5 opacity-80" />
-              swapna@swapnapharmacy.com
+              hanfordpharmacy@gmail.com
             </a>
           </div>
         </div>
@@ -114,8 +147,8 @@ const Header = () => {
         }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-          <a href="#" onClick={(e) => handleScrollTo(e, "#top")} className={`text-xl font-serif font-semibold flex items-center gap-2 z-50 ${isScrolled ? "text-primary" : "text-white"}`}>
-            <Pill className="h-7 w-7" />
+          <a href="#" onClick={(e) => handleScrollTo(e, "#top")} className={`text-xl font-serif font-semibold flex items-center gap-2.5 z-50 ${isScrolled ? "text-primary" : "text-white"}`}>
+            <Capsule className="h-6 w-6" />
             <span>Hanford Pharmacy</span>
           </a>
 
@@ -133,9 +166,10 @@ const Header = () => {
             ))}
             <a
               href="tel:+15593802220"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground px-5 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105 active:scale-95 shadow-md"
+              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-accent-foreground px-5 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105 active:scale-95 shadow-md"
               data-testid="button-nav-call"
             >
+              <Capsule className="w-4 h-4" />
               Call Now
             </a>
           </nav>
@@ -154,7 +188,8 @@ const Header = () => {
                 {link.name}
               </a>
             ))}
-            <a href="tel:+15593802220" onClick={() => setMobileMenuOpen(false)} className="bg-accent text-accent-foreground px-8 py-3 rounded-full font-semibold text-lg mt-2" data-testid="button-mobile-call">
+            <a href="tel:+15593802220" onClick={() => setMobileMenuOpen(false)} className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-3 rounded-full font-semibold text-lg mt-2" data-testid="button-mobile-call">
+              <Capsule className="w-4 h-4" />
               Call Now
             </a>
           </div>
@@ -166,63 +201,88 @@ const Header = () => {
 
 /* ─── Hero ─── */
 const Hero = () => (
-  <section id="top" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+  <section id="top" className="relative min-h-[100dvh] flex items-center overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img src={heroBg} alt="Hanford Pharmacy Interior" className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-teal-950/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-purple-950/60"></div>
     </div>
 
-    <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center text-center text-white pt-28 md:pt-40 pb-16">
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="max-w-4xl">
-        {/* Tagline pill */}
-        <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+    <div className="container mx-auto px-4 md:px-6 relative z-10 grid lg:grid-cols-[1.15fr_0.85fr] gap-10 items-center pt-32 md:pt-40 pb-20">
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="max-w-2xl text-white">
+        {/* Tagline label */}
+        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/25 pl-3 pr-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.15em] mb-7 font-mono">
+          <Capsule className="w-4 h-4 text-secondary" />
           A Holistic Neighborhood Pharmacy
         </div>
 
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
+        <h1 className="text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.05] mb-6 tracking-tight">
           Healing that holds<br className="hidden md:block" />
-          <span className="text-secondary/90"> the whole of you.</span>
+          <span className="text-secondary/90 italic font-medium">the whole of you.</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-white/85 mb-4 max-w-2xl mx-auto leading-relaxed">
-          Hanford Pharmacy is the practice of Swapna Reddy — BPharm, PharmD, BCACP, BCGP. Trusted local pharmacy care built on compassion, service, and community.
+        <p className="text-lg md:text-xl text-white/85 mb-4 max-w-xl leading-relaxed">
+          Hanford Pharmacy is the practice of Swapna Reddy — PharmD, BPharm, BCACP, BCGP, CBDCE, BCMTM. Trusted local pharmacy care built on compassion, service, and community.
         </p>
 
-        <p className="text-sm uppercase tracking-[0.2em] text-white/60 mb-10 font-medium">
+        <p className="text-sm uppercase tracking-[0.2em] text-white/55 mb-10 font-mono">
           Compassion · Service · Community
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
-          <a href="tel:+15593802220" className="w-full sm:w-auto bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg" data-testid="button-hero-call">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <a href="tel:+15593802220" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-xl" data-testid="button-hero-call">
+            <Capsule className="w-5 h-5" />
             Call Now
           </a>
-          <a href="https://maps.google.com/?q=1870+W+Lacey+Blvd+Hanford+CA+93230" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-white hover:text-primary shadow-lg" data-testid="button-hero-directions">
+          <a href="https://maps.google.com/?q=1870+W+Lacey+Blvd+Hanford+CA+93230" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto border-2 border-white/70 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-white hover:text-primary hover:border-white" data-testid="button-hero-directions">
             Get Directions
           </a>
         </div>
+      </motion.div>
 
-        {/* Stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-          {[
-            { value: "5.0 ★", label: "Google Rating" },
-            { value: "93+", label: "Reviews" },
-            { value: "18 yrs", label: "Practicing" },
-            { value: "120+", label: "Clinics Held" },
-          ].map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + i * 0.1 }}
-              className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-center"
-            >
-              <div className="text-xl font-bold text-white">{stat.value}</div>
-              <div className="text-xs text-white/70 uppercase tracking-wider mt-0.5">{stat.label}</div>
-            </motion.div>
-          ))}
+      {/* Floating prescription-label stat card */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, rotate: -6 }}
+        animate={{ opacity: 1, y: 0, rotate: -2 }}
+        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        className="hidden lg:block justify-self-end"
+      >
+        <div className="relative bg-white/95 backdrop-blur-sm rounded-[1.75rem] shadow-2xl shadow-black/30 w-80 p-7">
+          {/* perforation edge */}
+          <div className="absolute -top-3 left-8 right-8 border-t-2 border-dashed border-primary/25"></div>
+          <div className="absolute -top-3.5 left-6 w-3 h-3 rounded-full bg-primary/20"></div>
+          <div className="absolute -top-3.5 right-6 w-3 h-3 rounded-full bg-primary/20"></div>
+
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-gray-400 mb-4">Patient Snapshot</p>
+          <div className="grid grid-cols-2 gap-y-5">
+            {[
+              { value: "5.0 ★", label: "Google Rating" },
+              { value: "93+", label: "Reviews" },
+              { value: "18 yrs", label: "Practicing" },
+              { value: "120+", label: "Clinics Held" },
+            ].map((stat, i) => (
+              <div key={i}>
+                <div className="text-2xl font-bold text-primary font-serif">{stat.value}</div>
+                <div className="text-[0.65rem] text-gray-500 uppercase tracking-wider font-mono mt-0.5">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </motion.div>
+
+      {/* Compact stat strip for mobile/tablet */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 lg:hidden">
+        {[
+          { value: "5.0 ★", label: "Google Rating" },
+          { value: "93+", label: "Reviews" },
+          { value: "18 yrs", label: "Practicing" },
+          { value: "120+", label: "Clinics Held" },
+        ].map((stat, i) => (
+          <div key={i} className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-center">
+            <div className="text-xl font-bold text-white">{stat.value}</div>
+            <div className="text-xs text-white/70 uppercase tracking-wider mt-0.5">{stat.label}</div>
+          </div>
+        ))}
+      </div>
     </div>
 
     {/* Scroll indicator */}
@@ -238,7 +298,7 @@ const About = () => (
     <div className="container mx-auto px-4 md:px-6">
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }}>
-          <p className="text-sm font-bold text-primary tracking-wider uppercase mb-2">About Us</p>
+          <Eyebrow align="left">About Us</Eyebrow>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">About Hanford Pharmacy</h2>
           <p className="text-lg text-gray-600 leading-relaxed mb-5">
             Welcome to Hanford Pharmacy, where exceptional customer service meets personalized healthcare. We are committed to making every visit quick, convenient, and stress-free.
@@ -276,9 +336,7 @@ const MeetPharmacist = () => (
   <section id="team" className="py-24 bg-secondary overflow-hidden">
     <div className="container mx-auto px-4 md:px-6">
       <div className="text-center max-w-2xl mx-auto mb-16">
-        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-          The Pharmacist
-        </motion.p>
+        <Eyebrow>The Pharmacist</Eyebrow>
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
           A practice rooted in presence.
         </motion.h2>
@@ -302,8 +360,14 @@ const MeetPharmacist = () => (
           {/* Name + credentials */}
           <div className="text-center">
             <h3 className="text-2xl font-bold text-gray-900">Swapna Reddy</h3>
-            <p className="text-primary font-bold mt-1 text-lg">BPharm, PharmD, BCACP, BCGP</p>
-            <p className="text-gray-500 font-medium mt-0.5">Pharmacy Manager</p>
+            <div className="flex flex-wrap justify-center gap-1.5 mt-2.5 mb-1">
+              {["PharmD", "BPharm", "BCACP", "BCGP", "CBDCE", "BCMTM"].map((cred) => (
+                <span key={cred} className="font-mono text-[0.7rem] font-semibold text-primary bg-white border border-primary/25 rounded-full px-2.5 py-1">
+                  {cred}
+                </span>
+              ))}
+            </div>
+            <p className="text-gray-500 font-medium mt-2">Pharmacy Manager · Diabetic Lifestyle Coach Trainer</p>
           </div>
 
           {/* Stats chips */}
@@ -314,8 +378,8 @@ const MeetPharmacist = () => (
               { value: "EN · PA · HI", label: "Languages" },
             ].map((s, i) => (
               <div key={i} className="bg-white border border-primary/20 rounded-2xl px-5 py-3 text-center shadow-sm min-w-[100px]">
-                <div className="text-lg font-bold text-primary">{s.value}</div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider">{s.label}</div>
+                <div className="text-lg font-bold text-primary font-serif">{s.value}</div>
+                <div className="text-[0.65rem] text-gray-500 uppercase tracking-wider font-mono mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
@@ -333,7 +397,7 @@ const MeetPharmacist = () => (
           </div>
 
           <p className="text-gray-700 text-lg leading-relaxed">
-            Swapna trained as a clinical pharmacist (BPharm, PharmD) and holds board certifications as a <strong className="text-primary">BCACP</strong> (Ambulatory Care) and <strong className="text-primary">BCGP</strong> (Geriatric Pharmacist), with extensive post-graduate work in diabetes care, integrative health, and patient education.
+            Swapna trained as a clinical pharmacist (BPharm, PharmD) and holds board certifications as a <strong className="text-primary">BCACP</strong> (Ambulatory Care), <strong className="text-primary">BCGP</strong> (Geriatric Pharmacist), and <strong className="text-primary">BCMTM</strong> (Medication Therapy Management), along with her <strong className="text-primary">CBDCE</strong> certification as a Diabetic Lifestyle Coach Trainer.
           </p>
           <p className="text-gray-600 leading-relaxed">
             Her care draws on a deep commitment to community, mindfulness, and a belief that healing lives in the everyday — in how we eat, move, breathe, and listen to one another. Patients describe consultations with her as unhurried, candid, and quietly transformative.
@@ -350,8 +414,8 @@ const MeetPharmacist = () => (
                 {[
                   "Doctor of Pharmacy (PharmD)",
                   "Certified Diabetes Care & Education Specialist",
-                  "200-hr Yoga Teacher Training",
-                  "MBSR — Mindfulness Based Stress Reduction",
+                  "Certified Diabetic Lifestyle Coach Trainer (CBDCE)",
+                  "Board Certified Medication Therapy Manager (BCMTM)",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
@@ -393,14 +457,14 @@ const MeetPharmacist = () => (
         transition={{ duration: 0.8 }}
         className="max-w-3xl mx-auto text-center"
       >
-        <div className="bg-white rounded-3xl p-10 shadow-sm border border-primary/10 relative overflow-hidden">
-          <div className="absolute top-4 left-6 text-8xl text-primary/10 font-serif leading-none select-none">"</div>
-          <Quote className="w-10 h-10 text-primary/30 mx-auto mb-4" />
-          <blockquote className="text-xl md:text-2xl font-medium text-gray-800 leading-relaxed italic mb-6">
+        <div className="bg-white rounded-[2rem] p-10 md:p-12 shadow-[0_30px_60px_-25px_hsl(var(--primary)/0.35)] border border-primary/10 relative overflow-hidden">
+          <Quote className="w-9 h-9 text-accent mx-auto mb-5" />
+          <blockquote className="text-2xl md:text-[1.75rem] font-serif italic text-gray-800 leading-snug mb-7">
             A pharmacy should be a quiet room in a loud world — a place where you are met as a person first, and a patient second.
           </blockquote>
-          <p className="text-primary font-bold">— Swapna Reddy, PharmD</p>
-          <p className="text-gray-500 text-sm mt-1">Pharmacy Manager, Hanford Pharmacy</p>
+          <div className="w-10 h-px bg-primary/30 mx-auto mb-4"></div>
+          <p className="text-primary font-bold">Swapna Reddy, PharmD</p>
+          <p className="text-gray-500 text-sm font-mono uppercase tracking-wider mt-1">Pharmacy Manager, Hanford Pharmacy</p>
         </div>
       </motion.div>
     </div>
@@ -422,9 +486,7 @@ const WhyChooseUs = () => {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-            Why Us
-          </motion.p>
+          <Eyebrow>Why Us</Eyebrow>
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Why Choose Us
           </motion.h2>
@@ -441,9 +503,9 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08 }}
-              className="bg-secondary/60 hover:bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 group hover:-translate-y-1 border border-transparent hover:border-primary/10"
+              className="bg-secondary/60 hover:bg-white p-8 rounded-3xl rounded-tr-lg shadow-sm hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group hover:-translate-y-1 border border-transparent hover:border-primary/10"
             >
-              <div className="h-14 w-14 bg-white group-hover:bg-primary rounded-xl flex items-center justify-center mb-6 transition-colors duration-300 text-primary group-hover:text-white shadow-sm">
+              <div className="h-14 w-14 bg-white group-hover:bg-primary rounded-full flex items-center justify-center mb-6 transition-colors duration-300 text-primary group-hover:text-white shadow-sm">
                 <feature.icon className="h-7 w-7" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
@@ -468,7 +530,7 @@ const Services = () => {
     { title: "Refill Assistance", icon: Clock, desc: "Easy refill coordination so you never run out of your medications." },
     { title: "Medication Synchronization", icon: Repeat, desc: "Sync all your prescriptions to one convenient pickup date." },
     { title: "Diabetes Clinics", icon: Activity, desc: "Group and 1:1 sessions blending clinical care with lifestyle coaching." },
-    { title: "Mindfulness & Yoga", icon: Leaf, desc: "Monthly community classes for stress, sleep, and chronic illness." },
+    { title: "Diabetic Lifestyle Coaching", icon: Leaf, desc: "One-on-one coaching to build sustainable, healthy routines for diabetes management." },
     { title: "Wellness Outreach", icon: Globe, desc: "Workshops at temples, schools, and community centers." },
     { title: "Compounding", icon: HeartHandshake, desc: "Custom medication formulations tailored to individual patient needs." },
   ];
@@ -477,9 +539,7 @@ const Services = () => {
     <section id="services" className="py-24 bg-secondary">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-            What We Offer
-          </motion.p>
+          <Eyebrow>What We Offer</Eyebrow>
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Considered Services for Everyday Wellbeing
           </motion.h2>
@@ -496,10 +556,12 @@ const Services = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.04 }}
-              className="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:border-primary/30 border border-transparent transition-all duration-300 group relative overflow-hidden"
+              className="bg-white p-7 rounded-3xl rounded-bl-lg shadow-sm hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 border border-transparent transition-all duration-300 group relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 to-accent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-400"></div>
-              <service.icon className="h-9 w-9 text-primary mb-4" />
+              <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors duration-300">
+                <service.icon className="h-6 w-6 text-primary" />
+              </div>
               <h3 className="text-base font-bold text-gray-900 mb-2 leading-tight">{service.title}</h3>
               <p className="text-sm text-gray-500 leading-relaxed">{service.desc}</p>
             </motion.div>
@@ -525,7 +587,8 @@ const CTABanner = () => (
         Experience fast service, friendly care, and personalized attention at Hanford Pharmacy. Walk in today — no appointment needed.
       </motion.p>
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="tel:+15593802220" className="w-full sm:w-auto bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg" data-testid="button-banner-call">
+        <a href="tel:+15593802220" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg" data-testid="button-banner-call">
+          <Capsule className="w-5 h-5" />
           Call Now
         </a>
         <a href="https://maps.google.com/?q=1870+W+Lacey+Blvd+Hanford+CA+93230" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-white hover:text-primary" data-testid="button-banner-visit">
@@ -541,9 +604,7 @@ const Gallery = () => (
   <section className="py-24 bg-white">
     <div className="container mx-auto px-4 md:px-6">
       <div className="text-center max-w-2xl mx-auto mb-14">
-        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-          The Space
-        </motion.p>
+        <Eyebrow>The Space</Eyebrow>
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
           Inside Hanford Pharmacy
         </motion.h2>
@@ -588,7 +649,7 @@ const Affiliations = () => (
           { icon: Heart, label: "Blue Cross · Aetna · Medicare", sub: "Accepted insurance" },
           { icon: CheckCircle, label: "PCCA Compounding Network", sub: "Certified pharmacy" },
           { icon: Users, label: "Community Diabetes Outreach", sub: "Lead clinician" },
-          { icon: GraduationCap, label: "BCACP · BCGP Certified", sub: "Board certifications" },
+          { icon: GraduationCap, label: "BCACP · BCGP · BCMTM", sub: "Board certifications" },
         ].map(({ icon: Icon, label, sub }, i) => (
           <motion.div
             key={i}
@@ -623,9 +684,7 @@ const Reviews = () => {
     <section id="reviews" className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-            Patient Voices
-          </motion.p>
+          <Eyebrow>Patient Voices</Eyebrow>
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Care that people return to.
           </motion.h2>
@@ -670,7 +729,7 @@ const Location = () => (
     <div className="container mx-auto px-4 md:px-6">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-          <p className="text-sm font-bold text-primary tracking-wider uppercase mb-2">Find Us</p>
+          <Eyebrow align="left">Find Us</Eyebrow>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8">Location & Hours</h2>
 
           <div className="space-y-5 mb-10">
@@ -692,7 +751,7 @@ const Location = () => (
               <Mail className="w-6 h-6 text-primary shrink-0" />
               <div>
                 <p className="font-semibold text-gray-800 mb-0.5">Email</p>
-                <a href="mailto:swapna@swapnapharmacy.com" className="text-primary font-semibold hover:underline">swapna@swapnapharmacy.com</a>
+                <a href="mailto:hanfordpharmacy@gmail.com" className="text-primary font-semibold hover:underline">hanfordpharmacy@gmail.com</a>
               </div>
             </div>
           </div>
@@ -718,12 +777,12 @@ const Location = () => (
                   { day: "Wednesday", hours: "9:00 AM – 7:00 PM", open: true },
                   { day: "Thursday", hours: "9:00 AM – 7:00 PM", open: true },
                   { day: "Friday", hours: "9:00 AM – 7:00 PM", open: true },
-                  { day: "Saturday", hours: "10:00 AM – 4:00 PM", open: true },
+                  { day: "Saturday", hours: "Closed", open: false },
                   { day: "Sunday", hours: "Closed", open: false },
                 ].map(({ day, hours, open }, i, arr) => (
                   <tr key={day} className={i < arr.length - 1 ? "border-b border-gray-100" : ""}>
                     <td className="py-3 font-medium text-gray-700">{day}</td>
-                    <td className={`py-3 text-right font-medium ${open ? "text-green-600" : "text-red-400"}`}>{hours}</td>
+                    <td className={`py-3 text-right font-mono text-sm font-semibold ${open ? "text-green-600" : "text-red-400"}`}>{hours}</td>
                   </tr>
                 ))}
               </tbody>
@@ -768,9 +827,7 @@ const ContactForm = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm font-bold text-primary tracking-wider uppercase mb-2">
-              Reach Out
-            </motion.p>
+            <Eyebrow>Reach Out</Eyebrow>
             <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Get In Touch
             </motion.h2>
@@ -824,14 +881,14 @@ const Footer = () => (
     <div className="container mx-auto px-4 md:px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div className="space-y-5">
-          <div className="flex items-center gap-2 text-xl font-bold">
-            <Pill className="h-7 w-7" />
+          <div className="flex items-center gap-2.5 text-xl font-bold font-serif">
+            <Capsule className="h-6 w-6" />
             <span>Hanford Pharmacy</span>
           </div>
           <p className="text-white/70 leading-relaxed text-sm">
             A holistic neighborhood pharmacy in Hanford, CA — built on compassion, service, and community.
           </p>
-          <p className="text-white/60 text-xs italic">Compassion · Service · Community</p>
+          <p className="text-white/60 text-xs font-mono uppercase tracking-wider">Compassion · Service · Community</p>
           <div className="flex items-center gap-3">
             <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-primary transition-all" aria-label="Facebook"><SiFacebook className="w-4 h-4" /></a>
             <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-primary transition-all" aria-label="Instagram"><SiInstagram className="w-4 h-4" /></a>
@@ -853,14 +910,14 @@ const Footer = () => (
           <ul className="space-y-4 text-white/70 text-sm">
             <li className="flex items-start gap-3"><MapPin className="w-4 h-4 shrink-0 mt-0.5" /><span>1870 W Lacey Blvd<br />Hanford, CA 93230</span></li>
             <li className="flex items-center gap-3"><Phone className="w-4 h-4 shrink-0" /><a href="tel:+15593802220" className="hover:text-white transition-colors">+1 (559) 380-2220</a></li>
-            <li className="flex items-center gap-3"><Mail className="w-4 h-4 shrink-0" /><a href="mailto:swapna@swapnapharmacy.com" className="hover:text-white transition-colors">swapna@swapnapharmacy.com</a></li>
+            <li className="flex items-center gap-3"><Mail className="w-4 h-4 shrink-0" /><a href="mailto:hanfordpharmacy@gmail.com" className="hover:text-white transition-colors">hanfordpharmacy@gmail.com</a></li>
           </ul>
         </div>
 
         <div>
           <h4 className="text-lg font-bold mb-5">Business Hours</h4>
-          <ul className="space-y-2.5 text-sm text-white/70">
-            {[["Mon – Fri","9:00 AM – 7:00 PM"],["Saturday","10:00 AM – 4:00 PM"],["Sunday","Closed"]].map(([day, time]) => (
+          <ul className="space-y-2.5 text-sm text-white/70 font-mono">
+            {[["Mon – Fri","9:00 AM – 7:00 PM"],["Saturday","Closed"],["Sunday","Closed"]].map(([day, time]) => (
               <li key={day} className="flex justify-between gap-4">
                 <span>{day}</span>
                 <span className={time === "Closed" ? "text-white/40" : "text-white/90 font-medium"}>{time}</span>
@@ -876,7 +933,7 @@ const Footer = () => (
 
       <div className="pt-8 border-t border-white/20 flex flex-col md:flex-row items-center justify-between gap-3 text-white/50 text-sm">
         <p>© {new Date().getFullYear()} Hanford Pharmacy. All rights reserved.</p>
-        <p>Swapna Reddy, BPharm, PharmD, BCACP, BCGP — Pharmacy Manager</p>
+        <p>Swapna Reddy, PharmD, BPharm, BCACP, BCGP, CBDCE, BCMTM — Pharmacy Manager</p>
       </div>
     </div>
   </footer>
