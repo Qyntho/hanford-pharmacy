@@ -787,7 +787,7 @@ const Location = () => (
    with no backend of our own to host or maintain. Get a key at
    https://web3forms.com (enter hanfordpharmacy@gmail.com, the key arrives
    by email in seconds) and paste it into the constant below. */
-const WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = "007e07d3-4542-402f-8b3a-00ac414edb97";
 
 const ContactForm = () => {
   const { toast } = useToast();
