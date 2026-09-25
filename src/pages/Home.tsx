@@ -746,13 +746,13 @@ const Location = () => (
             <table className="w-full text-left">
               <tbody>
                 {[
-                  { day: "Monday", hours: "9:00 AM – 6:00 PM", open: true },
-                  { day: "Tuesday", hours: "9:00 AM – 6:00 PM", open: true },
-                  { day: "Wednesday", hours: "9:00 AM – 6:00 PM", open: true },
-                  { day: "Thursday", hours: "9:00 AM – 6:00 PM", open: true },
-                  { day: "Friday", hours: "9:00 AM – 6:00 PM", open: true },
-                  { day: "Saturday", hours: "Closed", open: false },
-                  { day: "Sunday", hours: "Closed", open: false },
+                   { day: "Monday", hours: "9:00 AM – 8:00 PM", open: true },
+                  { day: "Tuesday", hours: "9:00 AM – 8:00 PM", open: true },
+                  { day: "Wednesday", hours: "9:00 AM – 8:00 PM", open: true },
+                  { day: "Thursday", hours: "9:00 AM – 8:00 PM", open: true },
+                  { day: "Friday", hours: "9:00 AM – 8:00 PM", open: true },
+                  { day: "Saturday", hours: "11:00 AM – 3:30 PM", open: true },
+                  { day: "Sunday", hours: "11:00 AM – 3:30 PM", open: true },
                 ].map(({ day, hours, open }, i, arr) => (
                   <tr key={day} className={i < arr.length - 1 ? "border-b border-gray-100" : ""}>
                     <td className="py-3 font-medium text-gray-700">{day}</td>
