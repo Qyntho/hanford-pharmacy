@@ -913,30 +913,7 @@ const Footer = () => (
           </ul>
         </div>
 
-       <div>
-  <h4 className="text-lg font-bold mb-5">Business Hours</h4>
-  <ul className="space-y-2.5 text-sm text-white/70 font-mono">
-    {[
-      ["Mon – Fri", "9:00 AM – 8:00 PM"],
-      ["Saturday", "11:00 AM – 3:30 PM"],
-      ["Sunday", "11:00 AM – 3:30 PM"],
-    ].map(([day, time]) => (
-      <li key={day} className="flex justify-between gap-4">
-        <span>{day}</span>
-        <span className="text-white/90 font-medium">{time}</span>
-      </li>
-    ))}
-  </ul>
-
-  <div className="mt-6 pt-5 border-t border-white/20">
-    <p className="text-xs text-white/50 uppercase tracking-wider mb-2">
-      Languages Spoken
-    </p>
-    <p className="text-white/80 font-semibold">
-      English · Punjabi · Hindi
-    </p>
-  </div>
-</div>
+     <div> <h4 className="text-lg font-bold mb-5">Business Hours</h4> <ul className="space-y-2.5 text-sm text-white/70 font-mono"> {[["Mon – Fri","9:00 AM – 8:00 PM"],["Saturday","11:00 AM – 3:30 PM"],["Sunday","11:00 AM – 3:30 PM"]].map(([day, time]) => ( <li key={day} className="flex justify-between gap-4"> <span>{day}</span> <span className={time === "Closed" ? "text-white/40" : "text-white/90 font-medium"}>{time}</span> </li> ))} </ul> <div className="mt-6 pt-5 border-t border-white/20"> <p className="text-xs text-white/50 uppercase tracking-wider mb-2">Languages Spoken</p> <p className="text-white/80 font-semibold">English · Punjabi · Hindi</p> </div> </div>
 
       <div className="pt-8 border-t border-white/20 flex flex-col md:flex-row items-center justify-between gap-3 text-white/50 text-sm">
         <p>© {new Date().getFullYear()} Hanford Pharmacy. All rights reserved.</p>
