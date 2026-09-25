@@ -916,7 +916,7 @@ const Footer = () => (
         <div>
           <h4 className="text-lg font-bold mb-5">Business Hours</h4>
           <ul className="space-y-2.5 text-sm text-white/70 font-mono">
-            {[["Mon – Fri","9:00 AM – 8:00 PM"],["Saturday","11:00 AM – 3:30 PM"],["Sunday","11:00 AM – 3:30 PM"]].map(([day, time]) => (
+            {[["Mon – Fri","9:00 AM – 8:00 PM"],["Sat – Sun","11:00 AM – 3:30 PM"]].map(([day, time]) => (
               <li key={day} className="flex justify-between gap-4">
                 <span>{day}</span>
                 <span className="text-white/90 font-medium">{time}</span>
