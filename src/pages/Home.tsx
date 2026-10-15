@@ -124,7 +124,7 @@ const Header = () => {
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 opacity-80" />
-              Mon–Fri 9am–8pm · Sat–Sun 11am–3:30pm
+              Mon–Fri 9am–6pm · Sat–Sun Closed
             </span>
           </div>
           <div className="flex items-center gap-6">
@@ -746,13 +746,13 @@ const Location = () => (
             <table className="w-full text-left">
               <tbody>
                 {[
-                   { day: "Monday", hours: "9:00 AM – 8:00 PM", open: true },
-                  { day: "Tuesday", hours: "9:00 AM – 8:00 PM", open: true },
-                  { day: "Wednesday", hours: "9:00 AM – 8:00 PM", open: true },
-                  { day: "Thursday", hours: "9:00 AM – 8:00 PM", open: true },
-                  { day: "Friday", hours: "9:00 AM – 8:00 PM", open: true },
-                  { day: "Saturday", hours: "11:00 AM – 3:30 PM", open: true },
-                  { day: "Sunday", hours: "11:00 AM – 3:30 PM", open: true },
+                   { day: "Monday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Tuesday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Wednesday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Thursday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Friday", hours: "9:00 AM – 6:00 PM", open: true },
+                  { day: "Saturday", hours: "Closed", open: false },
+                  { day: "Sunday", hours: "Closed", open: false },
                 ].map(({ day, hours, open }, i, arr) => (
                   <tr key={day} className={i < arr.length - 1 ? "border-b border-gray-100" : ""}>
                     <td className="py-3 font-medium text-gray-700">{day}</td>
@@ -916,7 +916,7 @@ const Footer = () => (
         <div>
           <h4 className="text-lg font-bold mb-5">Business Hours</h4>
           <ul className="space-y-2.5 text-sm text-white/70 font-mono">
-            {[["Mon – Fri","9:00 AM – 8:00 PM"],["Sat – Sun","11:00 AM – 3:30 PM"]].map(([day, time]) => (
+            {[["Mon – Fri","9:00 AM – 6:00 PM"],["Sat – Sun","Closed"]].map(([day, time]) => (
               <li key={day} className="flex justify-between gap-4">
                 <span>{day}</span>
                 <span className="text-white/90 font-medium">{time}</span>
